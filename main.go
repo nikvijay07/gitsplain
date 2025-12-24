@@ -54,7 +54,7 @@ func git(args ...string) (string, error) {
 
 func getGitCommitHistory() (string, error) {
 	commit_dag, err_1 := git("rev-list", "--parents", "--max-count=15", "HEAD")
-	messages, err_2 := git("log", "-n", "15", `--pretty=format:%h %ad %s`, "--date=short")
+	messages, err_2 := git("log", "-n", "15", `--pretty=format:%h %P %s`, "--date=short")
 
 	commit_message_map := make(map[string]string)
 
@@ -62,6 +62,8 @@ func getGitCommitHistory() (string, error) {
 		fmt.Println("COMMIT DAG: ", commit_dag)
 		fmt.Println("COMMIT messages: ", messages)
 		fmt.Println("COMMIT MAP: ", commit_message_map)
+	} else {
+		fmt.Println("ERRORS: ", err_2)
 	}
 
 	return commit_dag, err_1
